@@ -12,35 +12,24 @@
 <script>
     $(document).ready(function () {
         
+
+        // modal clicked start
+        let dialog='';
+
         $('#bootModal').click(function (e) { 
         e.preventDefault();
 
-        let modalUrl = $(this).attr('href');
+        modalUrl = $(this).attr('href');
+
         $.ajax({
             type: "GET",
             url: modalUrl,
-            dataType: "html",
             success: function (res) {
-                let dialog = bootbox.dialog({
+                dialog = bootbox.dialog({
                 title: 'Create Student',
                 message: "<div id='studentContent'></div>",
                 size: 'large',
-                buttons: {
-                    cancel: {
-                        label: "Cancle",
-                        className: 'btn-danger',
-                        callback: function(){
-                            
-                        }
-                    },
-                    ok: {
-                        label: "Save",
-                        className: 'btn-info',
-                        callback: function() {
-                            
-                        }
-                    }
-                }
+
             });
 
             $('#studentContent').html(res);
@@ -49,13 +38,51 @@
 
             }
         });
-
-
-
-
-
-
         });
+        // modal clicked end
+
+
+        $(document).on('submit','#createStudentForm', function (e) {
+            e.preventDefault();
+
+            let formUrl = $(this).attr('action');
+            let formData = new FormData($('#createStudentForm')[0]);
+
+            $.ajax({
+                type: "POST",
+                url: formUrl,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    console.log(res);
+
+                    if (res.status===400) {
+                    
+                    $('.errors').html('');    
+                    $('.errors').removeClass('d-none');    
+                    $('.nameError').text(res.errors.name)
+                    $('.emailError').text(res.errors.email)
+                    $('.photoError').text(res.errors.photo)
+                    $('.accepetedError').text(res.errors.accepeted)
+                    }
+                    else
+                    {
+                    dialog.modal('hide');
+                    $('.errors').html('');    
+                    $('.errors').addClass('d-none');  
+                    toastr.success('Student Created Successfully!', 'Student Created')
+
+                    }
+    
+                }
+            });
+            
+        });
+
+
+
+
     });
 </script>
 @endsection
