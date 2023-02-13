@@ -34,7 +34,7 @@
 
     {{-- buttons --}}
     <div class="buttons mt-4 text-end">
-      <button type="button" class="btn me-3  btn-danger bootbox-cancel">Cancle</button>
+      <button type="button" class="btn me-3  btn-danger bootbox-close-button ">Cancle</button>
       {{-- bootbox-accept --}}
       <button type="submit" class="btn me-3  btn-success">Save</button>
 
