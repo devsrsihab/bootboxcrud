@@ -20,7 +20,7 @@
     <div class="mb-3">
       <label for="photo" class="form-label">Photo</label>
       <input type="file" class="form-control" id="photo" name="photo">
-      <img  src="{{ asset('uploads/student_img/'.$student->photo) }}" alt="profile">
+      <img class="img_preview"  src="{{ asset('uploads/student_img/'.$student->photo) }}" alt="profile">
       <div class="photoError errors text-danger d-none"></div>
 
     </div>

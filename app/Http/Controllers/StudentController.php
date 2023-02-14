@@ -84,7 +84,8 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['student'] = Student::find($id);
+        return view('student.view',$data);
     }
 
     /**
@@ -157,6 +158,22 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $student = Student::find($id);
+
+        if ( $student) {
+            $student->delete();        
+            return response()->json(['status'=>200,'message'=>'Successfully Deleted']);
+        } else {
+            return response()->json(['status'=>404,'message'=>'Your Student Not Found']);
+        }
+        
+    }
+
+
+    // pagination
+    public function pagination()
+    {
+      $data['students'] = Student::paginate(3);
+       return view('student.pagination',$data);
     }
 }

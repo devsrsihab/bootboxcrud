@@ -21,6 +21,7 @@
       <label for="photo" class="form-label">Photo</label>
       <input type="file" class="form-control" id="photo" name="photo">
       <div class="photoError errors text-danger d-none"></div>
+      <img class="img_preview"  src="" >
 
     </div>
 
